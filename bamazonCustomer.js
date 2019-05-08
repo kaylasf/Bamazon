@@ -52,12 +52,20 @@ const purchase = (id, amtBought) => {
         if (amtBought <= res[0].stock_quantity) {
             let total = res[0].price * amtBought
             // console.log('its in stock')
-            console.log(`We dont carry ${res[0].product_name}...NOOOT! Your total is $${total}`)
+            console.log(`
+            ********************************************************************
+            We dont carry ${res[0].product_name}...NOOOT! Your total is $${total}
+            ********************************************************************
+            `)
 
             db.query(`UPDATE products SET stock_quantity = stock_quantity - ${amtBought} WHERE item_id = ${id}`)
         }
         else {
-            console.log('insufficient quantity! Naughty Naughty!')
+            console.log(`
+            ***************************************
+            insufficient quantity! Naughty Naughty!
+            ***************************************
+            `)
         }
         inquirer
         .prompt([
@@ -76,7 +84,10 @@ const purchase = (id, amtBought) => {
 
             }
             else {
-                console.log('Wawaweewa! Great Success! Bye Bye')
+                console.log(`
+                *********************************
+                Wawaweewa! Great Success! Bye Bye
+                *********************************`)
                 process.exit();
                 // shop()
             }
@@ -171,7 +182,7 @@ const getAction = _ => {
         .prompt({
             type: 'list',
             name: 'action',
-            message: 'Would you like to shop or exit?',
+            message: 'Welcome to my Bamazon where you will get Borat themed responses! Would you like to shop or exit?',
             choices: ['Shop', 'Exit']
         })
         .then(({ action }) => {
